@@ -10,19 +10,23 @@ app.set('port', process.env.PORT || 3000);
 //});
 
 //run socket.io server
-var http = require('http');
-var server = app.listen(3000);
-// this tells socket.io to use our express server
-var io = require('socket.io').listen(server);
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
 
-
-io.on('connection', function(socket){
-  debug('a user connected');
+var er =
+server.listen(app.get('port'), function(){
+  debug('Express server listening on port ' + er.address().port);
+  console.log('listening on *:3000');
 });
 
-//var er =
-//server.listen(app.get('port'), function(){
-//  debug('Express server listening on port ' + er.address().port);
-//  console.log('listening on *:3000');
-//});
+io.on('connection', function(socket){
+  debug('a user connected' + socket.id);
+
+  socket.emit('info', {msg: 'The world is round, there is no up or down.' });
+  socket.on('chat message', function(data){
+    console.log("Recieved: 'chat message' " + data);
+    socket.broadcast.emit('chat message', data);
+  })
+
+});
 

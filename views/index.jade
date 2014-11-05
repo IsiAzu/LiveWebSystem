@@ -1,15 +1,8 @@
 extends layout
 
 block content
-  h1= "My " + title + " Blog"
-  p Welcome to my Test Site
 
-
-  footer
-    ul
-      li: a(href="/") Home
-
-    ul#messages
-    form(action="")
-      input#m(autocomplete="off")
-      input#send(type="submit", value="send")
+  #messages  No Messages Yet!
+  form(action="")
+    input#m(type="text", name="m", autocomplete="off")
+    input#send(type="submit", value="send", onclick="sen(this);")

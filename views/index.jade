@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  h1= "My " + title + " Blog"
+  p Welcome to my Test Site
+
+
+  footer
+    ul
+      li: a(href="/") Home
+      li: a(href="/about") About Me
+      li: a(href="/article") Some Article
+
+    ul#messages
+    form(action="")
+      input#m(autocomplete="off")
+      input#send(type="submit", value="send")

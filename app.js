@@ -32,13 +32,6 @@ app.get('/', function(req, res){
     res.sendfile(__dirname + '/index.html');
 });
 
-app.get('/about', function(req, res){
-    res.sendfile(__dirname + '/about.html');
-});
-
-app.get('/article', function(req, res){
-    res.sendfile(__dirname + '/article.html');
-});
 
 
 // catch 404 and forward to error handler

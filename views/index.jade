@@ -2,8 +2,8 @@ extends layout
 
 block content
 
-  #messages  No Messages Yet!
-  form(action="")
-    input#m(type="text", name="m", autocomplete="off")
-    input#send(type="submit", value="send", onclick="sen(this);")
+  button#start(type="button", onclick="startRec(this);") Start
+  button#stop(type="button", onclick="stopRec(this);", disabled) Stop
 
+  h2 My Recordings
+  ul#recordingslist

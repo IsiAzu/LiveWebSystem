@@ -20,6 +20,8 @@ socket.on('audio', function(data){
     audioSource.start(0);
 });
 
+var startRec;
+var stopRec;
 
 function init(){
     window.URL = window.URL || window.webkitURL || window.mozURL || window.msURL;
@@ -49,12 +51,8 @@ function init(){
                     button.previousElementSibling.disabled = false;
                     console.log('Stopped recording.');
 
-                    recorder.getBuffer(function(buffers) {
-                        // Binary data - ArrayBuffer
-                        var bufferToSend = buffers[0].buffer;
-                        var dataToSend = {left: bufferToSend};
-                        socket.emit('audio',dataToSend);
-                    });
+
+
                     createPlayer();
 
                 };//end of stopRecording
@@ -62,17 +60,28 @@ function init(){
                 createPlayer = function(){
 
                     recorder.exportWAV(function (blob) {
+                        var url = URL.createObjectURL(blob);
                         var li = document.createElement('li');
                         var au = document.createElement('audio');
+                        var sr = document.createElement('source');
 
                         au.controls = true;
+                        sr.src=url;
+
                         li.appendChild(au);
+                        au.appendChild(sr);
+
                         recordingslist.appendChild(li);
 
+                        //recorder.getBuffer(function(buffers) {
+                        //    // Binary data - ArrayBuffer
+                        //    var bufferToSend = buffers[0].buffer;
+                        //    var dataToSend = {left: bufferToSend};
+                        //    socket.emit('audio',dataToSend);
+                        //});
 
                     })
                 }
-
             }, function(error) {alert("Failure " + error.code);}
         );
     }//end of get user media
